@@ -25,7 +25,7 @@ protocol HttpPostClient {
     func post(url: URL)
 }
 class ApiAddAccountTests: XCTestCase {
-    func test() {
+    func testAddShouldCallHttpClientWithCorrectUrl() {
         let url = URL(string: "http://any.com")!
         let httpClient = HttpClientSpy()
         let sut = ApiAddAccount(url: url, httpClient: httpClient)
