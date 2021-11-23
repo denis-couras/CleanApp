@@ -11,7 +11,7 @@
 		ECC49F00274C637D00E85A4F /* AddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC49EFF274C637D00E85A4F /* AddAccount.swift */; };
 		ECC49F02274C657E00E85A4F /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC49F01274C657E00E85A4F /* AccountModel.swift */; };
 		ECC49F10274C661300E85A4F /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC49F08274C661300E85A4F /* Data.framework */; };
-		ECC49F15274C661300E85A4F /* DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC49F14274C661300E85A4F /* DataTests.swift */; };
+		ECC49F15274C661300E85A4F /* ApiAddAccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC49F14274C661300E85A4F /* ApiAddAccountTests.swift */; };
 		ECC49F1E274C663E00E85A4F /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC49EF6274C62CB00E85A4F /* Domain.framework */; };
 		ECC49F1F274C663E00E85A4F /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECC49EF6274C62CB00E85A4F /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -54,7 +54,7 @@
 		ECC49F01274C657E00E85A4F /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		ECC49F08274C661300E85A4F /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC49F0F274C661300E85A4F /* DataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECC49F14274C661300E85A4F /* DataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTests.swift; sourceTree = "<group>"; };
+		ECC49F14274C661300E85A4F /* ApiAddAccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAddAccountTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 		ECC49F13274C661300E85A4F /* DataTests */ = {
 			isa = PBXGroup;
 			children = (
-				ECC49F14274C661300E85A4F /* DataTests.swift */,
+				ECC49F14274C661300E85A4F /* ApiAddAccountTests.swift */,
 			);
 			path = DataTests;
 			sourceTree = "<group>";
@@ -300,7 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECC49F15274C661300E85A4F /* DataTests.swift in Sources */,
+				ECC49F15274C661300E85A4F /* ApiAddAccountTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
