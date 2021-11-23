@@ -9,8 +9,8 @@ import XCTest
 
 class ApiAddAccount {
     private let url: URL
-    private let httpClient: HttpClient
-    init(url: URL, httpClient: HttpClient) {
+    private let httpClient: HttpPostClient
+    init(url: URL, httpClient: HttpPostClient) {
         self.url = url
         self.httpClient = httpClient
     }
@@ -21,7 +21,7 @@ class ApiAddAccount {
 }
 
 
-protocol HttpClient {
+protocol HttpPostClient {
     func post(url: URL)
 }
 class ApiAddAccountTests: XCTestCase {
@@ -33,7 +33,7 @@ class ApiAddAccountTests: XCTestCase {
         XCTAssertEqual(httpClient.url, url)
     }
     
-    class HttpClientSpy: HttpClient {
+    class HttpClientSpy: HttpPostClient {
         var url: URL?
         func post(url: URL) {
             
