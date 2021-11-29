@@ -17,8 +17,7 @@ class ApiAddAccount {
     }
     
     func add(addAccountModel: AddAccountModel) {
-        let data = try? JSONEncoder().encode(addAccountModel)
-        httpClient.post(to: url, with: data)
+        httpClient.post(to: url, with: addAccountModel.toData())
     }
 }
 
@@ -37,8 +36,7 @@ class ApiAddAccountTests: XCTestCase {
         let (sut, httpClient) = ApiAddAccountMock().makeSut()
         let addAccountModel = AddAccountModelMock().makeAddAccountModel()
         sut.add(addAccountModel: addAccountModel)
-        let data = try? JSONEncoder().encode(addAccountModel)
-        XCTAssertEqual(httpClient.data, data)
+        XCTAssertEqual(httpClient.data, addAccountModel.toData())
     }
     
 }
