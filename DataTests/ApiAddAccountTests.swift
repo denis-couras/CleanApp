@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Domain
 
 class ApiAddAccount {
     private let url: URL
@@ -15,7 +16,7 @@ class ApiAddAccount {
         self.httpClient = httpClient
     }
     
-    func add() {
+    func add(addAccountModel: AddAccountModel) {
         httpClient.post(url: url)
     }
 }
@@ -32,7 +33,12 @@ class ApiAddAccountTests: XCTestCase {
         sut.add()
         XCTAssertEqual(httpClient.url, url)
     }
-    
+    func testAddShouldCallHttpClientWithCorrectData() {
+        let httpClient = HttpClientSpy()
+        let sut = ApiAddAccount(url: URL(string: "http://any.com")!, httpClient: httpClient)
+        sut.add()
+        XCTAssertEqual(httpClient.data, data)
+    }
     class HttpClientSpy: HttpPostClient {
         var url: URL?
         func post(url: URL) {
