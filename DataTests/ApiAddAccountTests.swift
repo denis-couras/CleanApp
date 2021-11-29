@@ -29,26 +29,33 @@ protocol HttpPostClient {
 class ApiAddAccountTests: XCTestCase {
     func testAddShouldCallHttpClientWithCorrectUrl() {
         let url = URL(string: "http://any.com")!
-        let httpClient = HttpClientSpy()
-        let sut = ApiAddAccount(url: url, httpClient: httpClient)
+        let (sut, httpClientSpy) = ApiAddAccountMock().makeSut()
         sut.add(addAccountModel: AddAccountModelMock().makeAddAccountModel())
-        XCTAssertEqual(httpClient.url, url)
+        XCTAssertEqual(httpClientSpy.url, url)
     }
     func testAddShouldCallHttpClientWithCorrectData() {
-        let httpClient = HttpClientSpy()
-        let sut = ApiAddAccount(url: URL(string: "http://any.com")!, httpClient: httpClient)
+        let (sut, httpClient) = ApiAddAccountMock().makeSut()
         let addAccountModel = AddAccountModelMock().makeAddAccountModel()
         sut.add(addAccountModel: addAccountModel)
         let data = try? JSONEncoder().encode(addAccountModel)
         XCTAssertEqual(httpClient.data, data)
     }
-    class HttpClientSpy: HttpPostClient {
-        var url: URL?
-        var data: Data?
-        func post(to url: URL, with data: Data?) {
-            self.url = url
-            self.data = data
-        }
+    
+}
+
+class HttpClientSpy: HttpPostClient {
+    var url: URL?
+    var data: Data?
+    func post(to url: URL, with data: Data?) {
+        self.url = url
+        self.data = data
+    }
+}
+
+class ApiAddAccountMock {
+    func makeSut(url: URL = URL(string: "http://any.com")!) -> (sut: ApiAddAccount, httpClientSpy: HttpClientSpy) {
+        let httpClient = HttpClientSpy()
+        return (ApiAddAccount(url: url, httpClient: httpClient), httpClient)
     }
 }
 
