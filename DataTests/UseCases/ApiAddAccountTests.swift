@@ -14,7 +14,7 @@ class ApiAddAccountTests: XCTestCase {
         let url = URL(string: "http://any.com")!
         let (sut, httpClientSpy) = ApiAddAccountMock().makeSut()
         sut.add(addAccountModel: AddAccountModelMock().makeAddAccountModel())
-        XCTAssertEqual(httpClientSpy.url, url)
+        XCTAssertEqual(httpClientSpy.urls, [url])
     }
     func testAddShouldCallHttpClientWithCorrectData() {
         let (sut, httpClient) = ApiAddAccountMock().makeSut()
@@ -26,10 +26,10 @@ class ApiAddAccountTests: XCTestCase {
 }
 
 class HttpClientSpy: HttpPostClient {
-    var url: URL?
+    var urls = [URL]()
     var data: Data?
     func post(to url: URL, with data: Data?) {
-        self.url = url
+        self.urls.append(url)
         self.data = data
     }
 }
