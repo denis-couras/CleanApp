@@ -93,9 +93,42 @@
 		EC5E05C127559F9200B60B26 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECC49F01274C657E00E85A4F /* AccountModel.swift */,
 				EC5E05C227559FA400B60B26 /* Model.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EC5E05C82755A13D00B60B26 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				ECC49EFF274C637D00E85A4F /* AddAccount.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		EC5E05C92755A16700B60B26 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				EC5E05C42755A07900B60B26 /* ApiAddAccount.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		EC5E05CA2755A17B00B60B26 /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				EC5E05C62755A0DB00B60B26 /* HttpPostClient.swift */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		EC5E05CB2755A19400B60B26 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				ECC49F14274C661300E85A4F /* ApiAddAccountTests.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		ECC49ED1274C622A00E85A4F = {
@@ -124,8 +157,7 @@
 			children = (
 				EC5E05C127559F9200B60B26 /* Model */,
 				ECC49EF9274C62CB00E85A4F /* Domain.docc */,
-				ECC49EFF274C637D00E85A4F /* AddAccount.swift */,
-				ECC49F01274C657E00E85A4F /* AccountModel.swift */,
+				EC5E05C82755A13D00B60B26 /* UseCases */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -133,8 +165,8 @@
 		ECC49F09274C661300E85A4F /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				EC5E05C42755A07900B60B26 /* ApiAddAccount.swift */,
-				EC5E05C62755A0DB00B60B26 /* HttpPostClient.swift */,
+				EC5E05C92755A16700B60B26 /* UseCases */,
+				EC5E05CA2755A17B00B60B26 /* Http */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -142,7 +174,7 @@
 		ECC49F13274C661300E85A4F /* DataTests */ = {
 			isa = PBXGroup;
 			children = (
-				ECC49F14274C661300E85A4F /* ApiAddAccountTests.swift */,
+				EC5E05CB2755A19400B60B26 /* UseCases */,
 			);
 			path = DataTests;
 			sourceTree = "<group>";
