@@ -13,24 +13,39 @@ class ApiAddAccountTests: XCTestCase {
     func testAddShouldCallHttpClientWithCorrectUrl() {
         let url = URL(string: "http://any.com")!
         let (sut, httpClientSpy) = ApiAddAccountMock().makeSut()
-        sut.add(addAccountModel: AddAccountModelMock().makeAddAccountModel())
+        sut.add(addAccountModel: AddAccountModelMock().makeAddAccountModel()) { _ in }
         XCTAssertEqual(httpClientSpy.urls, [url])
     }
     func testAddShouldCallHttpClientWithCorrectData() {
         let (sut, httpClient) = ApiAddAccountMock().makeSut()
         let addAccountModel = AddAccountModelMock().makeAddAccountModel()
-        sut.add(addAccountModel: addAccountModel)
+        sut.add(addAccountModel: addAccountModel) { _ in }
         XCTAssertEqual(httpClient.data, addAccountModel.toData())
     }
-    
+    func testAddShouldCompleteWithErrorIfClientFails() {
+        let (sut, httpClient) = ApiAddAccountMock().makeSut()
+        let exp = expectation(description: "waiting")
+        sut.add(addAccountModel: AddAccountModelMock().makeAddAccountModel()) { error in
+            XCTAssertEqual(error, .unexpected)
+            exp.fulfill()
+        }
+        httpClient.completeWithError(.noConnection)
+        wait(for: [exp], timeout: 1)
+    }
 }
 
 class HttpClientSpy: HttpPostClient {
     var urls = [URL]()
     var data: Data?
-    func post(to url: URL, with data: Data?) {
+    var completion: ((HttpError) -> Void)?
+    func post(to url: URL, with data: Data?, completion: @escaping (HttpError) -> Void) {
         self.urls.append(url)
         self.data = data
+        self.completion = completion
+    }
+    
+    func completeWithError(_ error: HttpError) {
+        completion?(error)
     }
 }
 
