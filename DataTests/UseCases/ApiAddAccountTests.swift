@@ -54,6 +54,22 @@ class ApiAddAccountTests: XCTestCase {
         httpClient.completeWithData(expectedAccount.toData()!)
         wait(for: [exp], timeout: 1)
     }
+
+    func testAddShouldCompleteWithErrorWithInvalidData() {
+        let (sut, httpClient) = ApiAddAccountMock().makeSut()
+        let exp = expectation(description: "waiting")
+        sut.add(addAccountModel: AddAccountModelMock.makeAddAccountModel()) { result in
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error, .unexpected)
+            case .success:
+                XCTFail("Expected error receive \(result) instead")
+            }
+            exp.fulfill()
+        }
+        httpClient.completeWithData(Data("invalid".utf8))
+        wait(for: [exp], timeout: 1)
+    }
 }
 
 
