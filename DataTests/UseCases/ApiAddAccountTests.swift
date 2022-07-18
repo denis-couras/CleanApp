@@ -24,51 +24,24 @@ class ApiAddAccountTests: XCTestCase {
     }
     func testAddShouldCompleteWithErrorIfClientFails() {
         let (sut, httpClient) = ApiAddAccountMock().makeSut()
-        let exp = expectation(description: "waiting")
-        sut.add(addAccountModel: AddAccountModelMock.makeAddAccountModel()) { result in
-            switch result {
-            case .failure(let error):
-                XCTAssertEqual(error, .unexpected)
-            case .success:
-                XCTFail("Expected error receive \(result) instead")
-            }
-            exp.fulfill()
-        }
-        httpClient.completeWithError(.noConnection)
-        wait(for: [exp], timeout: 1)
+        ApiAddAccountMock().expect(sut, completionWith: .failure(.unexpected), when: {
+            httpClient.completeWithError(.noConnection)
+        })
     }
 
     func testAddShouldCompleteWithSuccess() {
         let (sut, httpClient) = ApiAddAccountMock().makeSut()
-        let exp = expectation(description: "waiting")
         let expectedAccount = AddAccountModelMock.makeAccountModel()
-        sut.add(addAccountModel: AddAccountModelMock.makeAddAccountModel()) { result in
-            switch result {
-            case .success(let receivedAccount):
-                XCTAssertEqual(receivedAccount, expectedAccount)
-            case .failure:
-                XCTFail("Expected success received \(result) instead")
-            }
-            exp.fulfill()
-        }
-        httpClient.completeWithData(expectedAccount.toData()!)
-        wait(for: [exp], timeout: 1)
+        ApiAddAccountMock().expect(sut, completionWith: .success(expectedAccount), when: {
+            httpClient.completeWithData(expectedAccount.toData()!)
+        })
     }
 
     func testAddShouldCompleteWithErrorWithInvalidData() {
         let (sut, httpClient) = ApiAddAccountMock().makeSut()
-        let exp = expectation(description: "waiting")
-        sut.add(addAccountModel: AddAccountModelMock.makeAddAccountModel()) { result in
-            switch result {
-            case .failure(let error):
-                XCTAssertEqual(error, .unexpected)
-            case .success:
-                XCTFail("Expected error receive \(result) instead")
-            }
-            exp.fulfill()
-        }
-        httpClient.completeWithData(Data("invalid".utf8))
-        wait(for: [exp], timeout: 1)
+        ApiAddAccountMock().expect(sut, completionWith: .failure(.unexpected), when: {
+            httpClient.completeWithData(Data("invalid".utf8))
+        })
     }
 }
 
