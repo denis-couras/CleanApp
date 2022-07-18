@@ -34,6 +34,13 @@ class ApiAddAccountMock: XCTestCase {
         }
         action()
         wait(for: [exp], timeout: 1)
+    }
 
+    func makeInvalidData() -> Data {
+        Data("invalid".utf8)
+    }
+
+    func makeUrl() -> URL {
+        URL(string: "http://any.com")!
     }
 }

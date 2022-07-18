@@ -10,37 +10,40 @@ import Domain
 import Data
 
 class ApiAddAccountTests: XCTestCase {
+
+    let apiMock = ApiAddAccountMock()
+
     func testAddShouldCallHttpClientWithCorrectUrl() {
-        let url = URL(string: "http://any.com")!
-        let (sut, httpClientSpy) = ApiAddAccountMock().makeSut()
+        let url = apiMock.makeUrl()
+        let (sut, httpClientSpy) = apiMock.makeSut()
         sut.add(addAccountModel: AddAccountModelMock.makeAddAccountModel()) { _ in }
         XCTAssertEqual(httpClientSpy.urls, [url])
     }
     func testAddShouldCallHttpClientWithCorrectData() {
-        let (sut, httpClient) = ApiAddAccountMock().makeSut()
+        let (sut, httpClient) = apiMock.makeSut()
         let addAccountModel = AddAccountModelMock.makeAddAccountModel()
         sut.add(addAccountModel: addAccountModel) { _ in }
         XCTAssertEqual(httpClient.data, addAccountModel.toData())
     }
     func testAddShouldCompleteWithErrorIfClientFails() {
-        let (sut, httpClient) = ApiAddAccountMock().makeSut()
-        ApiAddAccountMock().expect(sut, completionWith: .failure(.unexpected), when: {
+        let (sut, httpClient) = apiMock.makeSut()
+        apiMock.expect(sut, completionWith: .failure(.unexpected), when: {
             httpClient.completeWithError(.noConnection)
         })
     }
 
     func testAddShouldCompleteWithSuccess() {
-        let (sut, httpClient) = ApiAddAccountMock().makeSut()
+        let (sut, httpClient) = apiMock.makeSut()
         let expectedAccount = AddAccountModelMock.makeAccountModel()
-        ApiAddAccountMock().expect(sut, completionWith: .success(expectedAccount), when: {
+        apiMock.expect(sut, completionWith: .success(expectedAccount), when: {
             httpClient.completeWithData(expectedAccount.toData()!)
         })
     }
 
     func testAddShouldCompleteWithErrorWithInvalidData() {
-        let (sut, httpClient) = ApiAddAccountMock().makeSut()
-        ApiAddAccountMock().expect(sut, completionWith: .failure(.unexpected), when: {
-            httpClient.completeWithData(Data("invalid".utf8))
+        let (sut, httpClient) = apiMock.makeSut()
+        apiMock.expect(sut, completionWith: .failure(.unexpected), when: {
+            httpClient.completeWithData(apiMock.makeInvalidData())
         })
     }
 }
