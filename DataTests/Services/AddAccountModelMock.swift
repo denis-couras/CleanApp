@@ -10,12 +10,21 @@ import Domain
 import Foundation
 
 class AddAccountModelMock {
-    func makeAddAccountModel() -> AddAccountModel {
+    static func makeAddAccountModel() -> AddAccountModel {
         AddAccountModel(
             name: "any_name",
             email: "any@email.com",
             password: "pass",
             passwordConfirmation: "pass"
+        )
+    }
+
+    static func makeAccountModel() -> AccountModel {
+        AccountModel(
+            id: "id",
+            name: "any_name",
+            email: "any@email.com",
+            password: "pass"
         )
     }
 }
